@@ -1,1 +1,77 @@
 
+Create a database called "contact"
+use "contact"
+
+
+Create a collection called "contactlist"
+db.createCollection("contactlist")
+
+Insert these documents  in "contactlist" 
+
+db.contactList.insertMany({"Last name": "Kefi", "First name": "Seif", "Email": "kefi@gmail.com", "age":15},
+{"Last name": "Fatnassi", "First name": "Sarra", "Email": "sarra.f@gmail.com", "age":40},
+{"Last name": "Ben Yahia", "First name": "Rym", "age":4},
+{"Last name": "Cherif", "First name": "Sami", "age":3})
+
+Display all the information about only one person using his id
+ db.contactList.find({ "_id" : ObjectId("5feddc1f063d10d82a28f1c4")})
+{ "_id" : ObjectId("5feddc1f063d10d82a28f1c4"), "Last name" : "Ben Lahmer", "First name" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+
+
+Display all the contact list having age>18
+> db.contactList.find({ age :{$gt:18}})
+{ "_id" : ObjectId("5feddc1f063d10d82a28f1c4"), "Last name" : "Ben Lahmer", "First name" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+{ "_id" : ObjectId("5feddd76063d10d82a28f1c6"), "Last name" : "Fatnassi", "First name" : "Sarra", "Email" : "sarra.f@gmail.com", "age" : 40 }
+
+
+Display all the contact list having age>18 and name containing "ah"
+
+> db.contactList.find({"age":{$gt:18},"Last name": /ah/})
+{ "_id" : ObjectId("5feddc1f063d10d82a28f1c4"), "Last name" : "Ben Lahmer", "First name" : "Fares", "Email" : "fares@gmail.com", "age" : 26 }
+
+
+Change the contact first name of "kefi Seif" by "Kefi Anis"
+
+ db.contactList.update({"Last name":"Kefi"},{$set:{"First name":"Anis"}})
+{ "_id" : ObjectId("5fef1d0ed0e190c1a61f04a3"), "Last name" : "Kefi", "First name" : "Anis", "Email" : "kefi@gmail.com", "age" : 15 }
+
+
+Delete the the contact list having age < 5
+
+> db.contactList.remove({age:{$gt:5}})
+
+{ "_id" : ObjectId("5feddd76063d10d82a28f1c5"), "Frst name" : "Anis" }
+{ "_id" : ObjectId("5feddd76063d10d82a28f1c7"), "Last name" : "Ben Yahia", "First name" : "Rym", "age" : 4 }
+{ "_id" : ObjectId("5feddd76063d10d82a28f1c8"), "Last name" : "Cherif", "First name" : "Sami", "age" : 3 }
+{ "_id" : ObjectId("5fef1c4f063d10d82a28f1c9"), "First name" : "Anis" }
+{ "_id" : ObjectId("5fef1c4f063d10d82a28f1cb"), "Last name" : "Ben Yahia", "First name" : "Rym", "age" : 4 }
+{ "_id" : ObjectId("5fef1c4f063d10d82a28f1cc"), "Last name" : "Cherif", "First name" : "Sami", "age" : 3 }
+
+
+
+Display all the contact list
+ db.contactList.find().pretty()
+{
+        "_id" : ObjectId("5feddd76063d10d82a28f1c7"),
+        "Last name" : "Ben Yahia",
+        "First name" : "Rym",
+        "age" : 4
+}
+{
+        "_id" : ObjectId("5feddd76063d10d82a28f1c8"),
+        "Last name" : "Cherif",
+        "First name" : "Sami",
+        "age" : 3
+}
+{
+        "_id" : ObjectId("5fef1c4f063d10d82a28f1cb"),
+        "Last name" : "Ben Yahia",
+        "First name" : "Rym",
+        "age" : 4
+}
+{
+        "_id" : ObjectId("5fef1c4f063d10d82a28f1cc"),
+        "Last name" : "Cherif",
+        "First name" : "Sami",
+        "age" : 3
+}
